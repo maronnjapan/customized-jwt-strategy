@@ -1,0 +1,28 @@
+{
+  "name": "customized-jwt-strategy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maronnjapan/customized-jwt-strategy.git"
+  },
+  "author": "maronn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maronnjapan/customized-jwt-strategy/issues"
+  },
+  "homepage": "https://github.com/maronnjapan/customized-jwt-strategy#readme",
+  "dependencies": {
+    "@nestjs/passport": "^10.0.2",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "typescript": "^5.3.2"
+  },
+  "devDependencies": {
+    "@types/passport-jwt": "^3.0.13"
+  }
+}
