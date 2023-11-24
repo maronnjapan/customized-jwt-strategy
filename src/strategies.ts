@@ -2,8 +2,8 @@ import { PassportStrategy } from "@nestjs/passport"
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt"
 
 
-interface AbstractStrategyClass<T, K> {
-    validate(payload: T): K
+interface AbstractStrategyClass {
+    validate(...payload: any): any
 }
 
 type KeyOptions = Omit<StrategyOptions, 'secretOrKeyProvider' | 'jwtFromRequest'> & Required<Pick<StrategyOptions, 'secretOrKey'>>
@@ -13,33 +13,35 @@ type JetFromRequest = Pick<StrategyOptions, 'jwtFromRequest'>
 const COOKIE_STRATEGY_NAME_WITH_KEY = 'COOKIE_STRATEGY_NAME_WITH_KEY'
 export const CookieStrategyWithKey = {
     strategyName: COOKIE_STRATEGY_NAME_WITH_KEY,
-    strategy: <T, K>(options: KeyOptions, cookieName: string) => {
+    strategy: (options: KeyOptions, cookieName: string) => {
         const getTokenObject: JetFromRequest = {
             jwtFromRequest: (req) => req?.cookies[cookieName] ?? null
         }
-        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, COOKIE_STRATEGY_NAME_WITH_KEY) implements AbstractStrategyClass<T, K> {
+        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, COOKIE_STRATEGY_NAME_WITH_KEY) implements AbstractStrategyClass {
             constructor() {
                 super({ ...options, ...getTokenObject })
             }
-            abstract validate(payload: T): K
+            abstract validate(...payload: any): any
         }
 
         return CookieStrategyClassWithKey;
     }
 }
 
+CookieStrategyWithKey.strategy({ secretOrKey: '' }, 'token')
+
 const COOKIE_STRATEGY_NAME_WITH_KEY_PROVIDER = 'COOKIE_STRATEGY_NAME_WITH_KEY_PROVIDER'
 export const CookieStrategyWithKeyProvider = {
     strategyName: COOKIE_STRATEGY_NAME_WITH_KEY_PROVIDER,
-    strategy: <T, K>(options: KeyProviderOptions, cookieName: string) => {
+    strategy: (options: KeyProviderOptions, cookieName: string) => {
         const getTokenObject: JetFromRequest = {
             jwtFromRequest: (req) => req?.cookies[cookieName] ?? null
         }
-        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, COOKIE_STRATEGY_NAME_WITH_KEY_PROVIDER) implements AbstractStrategyClass<T, K> {
+        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, COOKIE_STRATEGY_NAME_WITH_KEY_PROVIDER) implements AbstractStrategyClass {
             constructor() {
                 super({ ...options, ...getTokenObject })
             }
-            abstract validate(payload: T): K
+            abstract validate(...payload: any): any
         }
 
         return CookieStrategyClassWithKey;
@@ -49,15 +51,15 @@ export const CookieStrategyWithKeyProvider = {
 const AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY = 'AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY'
 export const AuthorizationHeaderStrategyWithKey = {
     strategyName: AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY,
-    strategy: <T, K>(options: KeyOptions) => {
+    strategy: (options: KeyOptions) => {
         const getTokenObject: JetFromRequest = {
             jwtFromRequest: (req) => ExtractJwt.fromAuthHeaderAsBearerToken()(req)
         }
-        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY) implements AbstractStrategyClass<T, K> {
+        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY) implements AbstractStrategyClass {
             constructor() {
                 super({ ...options, ...getTokenObject })
             }
-            abstract validate(payload: T): K
+            abstract validate(...payload: any): any
         }
 
         return CookieStrategyClassWithKey;
@@ -67,15 +69,15 @@ export const AuthorizationHeaderStrategyWithKey = {
 const AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY_PROVIDER = 'AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY_PROVIDER'
 export const AuthorizationHeaderStrategyWithKeyProvider = {
     strategyName: AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY_PROVIDER,
-    strategy: <T, K>(options: KeyProviderOptions) => {
+    strategy: (options: KeyProviderOptions) => {
         const getTokenObject: JetFromRequest = {
             jwtFromRequest: (req) => ExtractJwt.fromAuthHeaderAsBearerToken()(req)
         }
-        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY_PROVIDER) implements AbstractStrategyClass<T, K> {
+        abstract class CookieStrategyClassWithKey extends PassportStrategy(Strategy, AUTHORIZATION_HEADER_STRATEGY_NAME_WITH_KEY_PROVIDER) implements AbstractStrategyClass {
             constructor() {
                 super({ ...options, ...getTokenObject })
             }
-            abstract validate(payload: T): K
+            abstract validate(...payload:any): any
         }
 
         return CookieStrategyClassWithKey;
