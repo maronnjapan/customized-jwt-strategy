@@ -6,7 +6,7 @@ PassportStrategy 関数の説明とこのリポジトリ内のコードにまつ
 
 # インストール方法
 
-以下のコマンドでインストールします。
+以下のコマンドでインストールします。  
 `npm install customized-jwt-strategy`
 
 使い方は以下の通りです。
