@@ -17,7 +17,7 @@ import { AuthorizationHeaderStrategyWithKey } from "customized-jwt-strategy";
 
 @Injectable()
 export class JwtStrategy extends AuthorizationHeaderStrategyWithKey.strategy({
-  secretOrKey: "string 型 or Buffer 型の検証ようの鍵",
+  secretOrKey: "string 型 or Buffer 型の検証用の鍵",
 }) {
   constructor() {
     super();
